@@ -1,0 +1,93 @@
+%++++++++++++++++++++++++++++++++++++++++
+% Don't modify this section unless you know what you're doing!
+\documentclass[letterpaper,12pt]{article}
+\usepackage{tabularx} % extra features for tabular environment
+\usepackage{amsmath}  % improve math presentation
+\usepackage{mathabx}
+\usepackage{braket}
+\usepackage{siunitx}
+\usepackage{graphicx} % takes care of graphic including machinery
+\usepackage[margin=1in,letterpaper]{geometry} % decreases margins
+\usepackage{cite} % takes care of citations
+\usepackage[final]{hyperref} % adds hyper links inside the generated pdf file
+\usepackage{multirow}
+\hypersetup{
+	colorlinks=true,       % false: boxed links; true: colored links
+	linkcolor=blue,        % color of internal links
+	citecolor=blue,        % color of links to bibliography
+	filecolor=magenta,     % color of file links
+	urlcolor=blue         
+}
+%++++++++++++++++++++++++++++++++++++++++
+
+
+\begin{document}
+
+\title{Report IV}
+\author{Cristina Mier Gonz\'alez}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+Explain Rashba Hamiltonian, write explicit matrix. Some results in dimer and atomic chain.
+\end{abstract}
+
+\section{Theory: Spin-orbit coupling}
+For a flat surface, with an electric field perpendicular to the $xy$ plane, the Rashba Hamiltonian is written \cite{Manchon2015}:
+\begin{equation}
+    \hat{H}_{Rashba} = \frac{\alpha_R}{\hbar}(\Vec{\sigma}\times\Vec{p})_z
+\end{equation}
+Where $\alpha_R$ is the spin-orbit coupling strength and $\Vec{\sigma} = (\sigma_x, \sigma_y, \sigma_z)$ are the spin Pauli matrices. In a 2D system, where electrons are confined in the $xy$ plane, the Rashba Hamiltomian becomes:
+\begin{equation}
+    \hat{H}_{Rashba} = \frac{\alpha_R}{\hbar}(p_y\sigma_x - p_x\sigma_y)
+    \label{2D}
+\end{equation}
+The momentum operator is related to the differential operator:
+\begin{equation}
+    \hat{p}_x = -i\hbar\frac{\partial}{\partial x} \qquad \hat{p}_y = -i\hbar\frac{\partial}{\partial y}
+\end{equation}
+Using finite differences and the following discretization of the 2D space in $\ket{n, m} = \ket{x = na, y = ma}$ where $a$ is the lattice parameter. The momentum operators become:
+\begin{equation}
+    \hat{p}_x = -i\hbar \frac{\ket{n+1, m}\bra{n, m}}{2a} \qquad  \hat{p}_y = -i\hbar \frac{\ket{n, m+1}\bra{n, m}}{2a}
+\end{equation}
+The Rashba Hamiltonian is now given:
+\begin{equation}
+    \hat{H}_{Rashba} = \frac{\alpha_R}{2a}\sum_{n, m, \sigma}\Bigg[ \big(\ket{n, m}_\sigma\bra{n+1, m}_{\sigma'}\times i\sigma_y\big) - \big(\ket{n, m}_{\sigma}\bra{n, m + 1}_{\sigma'}\times i\sigma_x \big)\Bigg] + h.c.
+     \label{tight}
+\end{equation}
+The subindex $\sigma$ indicates the spin of each state. The previous Hamiltonian couples states at nearest neighbours sites and with different spin state. \\ \\
+We want to write Equation \ref{tight} in matrix form using the Nambu basis $\Psi = [\psi_\uparrow \psi_\downarrow \psi_\uparrow^\dagger \psi_\downarrow^\dagger]^T$. For the coupling along the $x$ direction we have:
+\begin{equation}
+\hat{H}_{Rashba_x} = 
+    -\frac{\alpha_R}{a}\begin{pmatrix}
+    0 & 1 & 0 & 0 \\
+    -1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & -1 \\
+    0 & 0 & 1 & 0
+  \end{pmatrix}
+\end{equation}
+In the $y$ direction:
+\begin{equation}
+\hat{H}_{Rashba_y} = 
+    \frac{\alpha_R}{a}\begin{pmatrix}
+    0 & i & 0 & 0 \\
+    i & 0 & 0 & 0 \\
+    0 & 0 & 0 & -i \\
+    0 & 0 & -i & 0
+  \end{pmatrix}
+\end{equation}
+
+\section{Simulations}
+Using the program introduced in the previous report, the chain of adatoms on the supercondcuting matrix, I performed several simulations for different chain lengths. The programs used for obtaining the following results are written python and for the longest chains are run in the CFM cluster Oberon. Atomic chains of lengths between 5 and 15 atoms are obtained.
+
+
+
+
+   
+ 
+
+\bibliography{name.bib}{}
+\bibliographystyle{abbrv}
+
+
+\end{document}
